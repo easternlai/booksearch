@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Container, Row, Col} from "../components/Grid";
 
 class Save extends Component{
     state = {
@@ -6,7 +7,10 @@ class Save extends Component{
     }
     render(){
         return(
-            <p>{this.state.test}</p>
+            <Container>
+
+            </Container>
+            
         );
     }
 }
