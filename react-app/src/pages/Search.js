@@ -5,8 +5,14 @@ import API from "../utilities/API"
 
 class Search extends Component{
     state = {
-        test: "test",
+        result: {},
         searchTerm:"",
+    };
+
+    searchBook = query => {
+        API.search(query).then(res => this.setState({result: res.data}))
+        .catch(err => console.log(err));
+        console.log(this.state.result);
     };
 
     handleInputChange = event => {
@@ -19,6 +25,7 @@ class Search extends Component{
 
     handleFormSubmit = event => {
         event.preventDefault();
+        this.searchBook(this.state.searchTerm);
         
     }
 
