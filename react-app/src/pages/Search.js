@@ -2,17 +2,29 @@ import React, {Component} from "react";
 import {Container, Row, Col} from "../components/Grid";
 import {Input, SearchBtn} from "../components/Form";
 import API from "../utilities/API"
+import Card from "../components/Card";
 
 class Search extends Component{
     state = {
-        result: {},
-        searchTerm:"",
+        searchResult: [],
+        searchTerm:""
     };
 
     searchBook = query => {
-        API.search(query).then(res => this.setState({result: res.data}))
+        API.search(query).then(res => {
+            var arr = [];
+            res.data.items.map(item => arr.push({
+                title: item.volumeInfo.title,
+                author: item.volumeInfo.authors[0],
+                description: item.volumeInfo.description,
+                image: item.volumeInfo.imageLinks.thumbnail,
+                info: item.volumeInfo.infoLink
+            })); 
+            this.setState({searchResult: arr});
+            console.log(this.state.searchResult);
+        })
         .catch(err => console.log(err));
-        console.log(this.state.result);
+
     };
 
     handleInputChange = event => {
@@ -29,7 +41,6 @@ class Search extends Component{
         
     }
 
-    
 
     render(){
         return(
@@ -40,14 +51,27 @@ class Search extends Component{
                         value={this.state.searchterm}
                         onChange={this.handleInputChange}
                         name="searchTerm"
-                        placeholders="Enter Book"
-                        > 
+                        placeholders="Enter Book"> 
                         </Input>
-                        <SearchBtn 
-                        handleFormSubmit={this.handleFormSubmit}
-                        >
+                        <SearchBtn s
+                        handleFormSubmit={this.handleFormSubmit}>
                             Submit
                         </SearchBtn>
+                        <p>results</p>
+                
+                            {this.state.searchResult.map(result => (
+                                <Row>
+                                    <Card 
+                                    title={result.title}
+                                    author={result.author}
+                                    description={result.description}
+                                    image={result.image}
+                                    link={result.link}
+                                    />
+                                </Row>
+                            ))}
+                    
+
                         
                         
                     </Col>
@@ -56,5 +80,4 @@ class Search extends Component{
         );
     }
 }
-
 export default Search;
