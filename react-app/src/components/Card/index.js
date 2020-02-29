@@ -1,7 +1,7 @@
 import React from "react";
 import {Row, Col, Container} from "../Grid";
 import CardBut from "../CardBut";
-
+import {Link} from "react-router-dom";
 function Card (props){
     return (
         <Container>
@@ -11,10 +11,13 @@ function Card (props){
                 <p>Written by: {props.author}</p>
                 </Col>
                 <Col size="md-6">
-                    <CardBut>
-                        view
+                    <CardBut buttonFunction={props.handleViewSubmit} 
+                             id={props.id}
+                    >
+                            <a>View</a>
                     </CardBut>
-                    <CardBut>
+                    <CardBut buttonFunction={props.handleSaveSubmit} 
+                             id={props.id}>
                         save
                     </CardBut>
                 </Col>

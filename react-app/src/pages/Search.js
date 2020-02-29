@@ -7,19 +7,24 @@ import Card from "../components/Card";
 class Search extends Component{
     state = {
         searchResult: [],
-        searchTerm:""
+        searchTerm:"",
+        saveBook:{}
     };
 
     searchBook = query => {
         API.search(query).then(res => {
             var arr = [];
+            var i = 0;
             res.data.items.map(item => arr.push({
+                id: i++,
                 title: item.volumeInfo.title,
                 author: item.volumeInfo.authors[0],
                 description: item.volumeInfo.description,
-                image: item.volumeInfo.imageLinks.thumbnail,
-                info: item.volumeInfo.infoLink
+                thumbnail: item.volumeInfo.imageLinks.smallThumbnail,
+                info: item.volumeInfo.infoLink,
+                saved: false
             })); 
+
             this.setState({searchResult: arr});
             console.log(this.state.searchResult);
         })
@@ -32,13 +37,29 @@ class Search extends Component{
         this.setState({
           [name]: value
         });
-        
     };
 
     handleFormSubmit = event => {
         event.preventDefault();
         this.searchBook(this.state.searchTerm);
-        
+    }
+
+    handleSaveSubmit = currentId => {
+        this.state.searchResult.map(item => {
+            
+            if(currentId === item.id){
+                console.log(currentId);
+            }
+        });   
+    }
+
+    handleViewSubmit = currentId => {
+        this.state.searchResult.map(item => {
+            
+            if(currentId === item.id){
+                console.log("view: " + currentId);
+            }
+        });   
     }
 
 
@@ -62,14 +83,18 @@ class Search extends Component{
                             {this.state.searchResult.map(result => (
                                 <Row>
                                     <Card 
+                                    handleSaveSubmit={this.handleSaveSubmit}
+                                    handleViewSubmit={this.handleViewSubmit}
+                                    id={result.id}
                                     title={result.title}
                                     author={result.author}
                                     description={result.description}
-                                    image={result.image}
+                                    image={result.thumbnail}
                                     link={result.link}
                                     />
                                 </Row>
                             ))}
+                
                     
 
                         

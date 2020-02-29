@@ -2,7 +2,7 @@ import React from "react";
 
 function CardBut (props){
     return(
-    <button>{props.children}</button>
+    <button onClick={()=>props.buttonFunction(props.id)}>{props.children}</button>
     );
 }
 
