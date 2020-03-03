@@ -12,13 +12,12 @@ function Card (props){
                 </Col>
                 <Col size="md-6">
                     <CardBut buttonFunction={props.handleViewSubmit} 
-                             id={props.id}
-                    >
+                            id={props.id}>
                             <a>View</a>
                     </CardBut>
                     <CardBut buttonFunction={props.handleSaveSubmit} 
-                             id={props.id}>
-                        save
+                            id={props.id}>
+                            <a>Save</a>
                     </CardBut>
                 </Col>
             </Row>
