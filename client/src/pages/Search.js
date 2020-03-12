@@ -52,8 +52,8 @@ class Search extends Component{
                     title: item.title, 
                     author: item.author,
                     description: item.description,
-                    image: item.image,
-                    link: item.link
+                    image: item.thumbnail,
+                    link: item.info
                 });
                
             }
