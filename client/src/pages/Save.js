@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import {Container, Row, Col} from "../components/Grid";
 import API from "../utilities/API";
 import Card from "../components/Card";
+import { Link } from "react-router-dom";
+
 
 
 class Save extends Component{
@@ -15,40 +17,36 @@ class Save extends Component{
 
     loadBooks = () => {
         API.getBooks().then(res => {
-            this.setState({savedBooks:res.data});
+            this.setState({ savedBooks : res.data });
             console.log(this.state.savedBooks);
         });
     };
 
-    handleViewSubmit = currentId => {
-        this.state.searchResult.map(item => {
-            
-            if(currentId === item._id){
-                console.log(currentId);
-            }
-        });   
+    handleViewSubmit = link => {
+ 
+        global.window.location.href=link;            
     }
 
     handleUnsaveSubmit = currentId => {
 
-        this.state.savedBooks.map(item => {
-            if(currentId===item._id){
-                API.deleteBook(currentId).then(res => console.log("test"));
-            }
-        });
+                API.deleteBook(currentId).then( (res) => this.loadBooks());
     }
 
     render(){
         return(
             <Container>
-                <p>Saved Books</p>
+                <Link to={"/"}>
+                    <strong>Click here to search for books</strong>
+                </Link>
+    
 
                 {this.state.savedBooks.map(result=> (
                     <Row>
                         <Card
-                        handleViewSubmit={this.handleViewSubmit}
-                        handleSaveSubmit={this.handleUnsaveSubmit}
+                        handleViewSubmit={() => this.handleViewSubmit(result.link)}
+                        handleSaveSubmit={ () => this.handleUnsaveSubmit(result._id)}
                         id={result._id}
+                        key={result._id}
                         title={result.title}
                         author={result.author}
                         description={result.description}

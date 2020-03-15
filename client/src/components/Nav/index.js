@@ -1,8 +1,10 @@
 import React from "react";
 
-function Nav(){
+
+function Nav(props){
     return(
-    <div>Nav</div>
+    <h1>Book Manager</h1>
+
     );
 }
 

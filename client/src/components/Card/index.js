@@ -20,6 +20,7 @@ function Card (props){
                             <a>{props.buttonTypeTwo}</a>
                     </CardBut>
                 </Col>
+                
             </Row>
             <Row>
                 <Col size="md-3">

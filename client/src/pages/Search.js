@@ -3,6 +3,7 @@ import {Container, Row, Col} from "../components/Grid";
 import {Input, SearchBtn} from "../components/Form";
 import API from "../utilities/API"
 import Card from "../components/Card";
+import { Link } from "react-router-dom";
 
 class Search extends Component{
     state = {
@@ -60,11 +61,11 @@ class Search extends Component{
         });   
     }
 
-    handleViewSubmit = currentId => {
+    handleViewSubmit = link => {
         this.state.searchResult.map(item => {
             
-            if(currentId === item.id){
-                console.log(currentId);
+            if(link === item.info){
+                global.window.location.href=link;
             }
         });   
     }
@@ -72,8 +73,15 @@ class Search extends Component{
     render(){
         return(
             <Container>
+                 <Link to={"/save"}>
+                      <strong>
+                        View saved books
+                      </strong>
+                      
+                    </Link>
                 <Row>
                     <Col size="md-12">
+                        <h5></h5>
                         <Input 
                         value={this.state.searchterm}
                         onChange={this.handleInputChange}
